@@ -39,17 +39,31 @@ const user = page.props.auth.user;
 
                 <Form method="patch" :action="route('profile.update')" class="space-y-6" v-slot="{ errors, processing, recentlySuccessful }">
                     <div class="grid gap-2">
-                        <Label for="name">Name</Label>
+                        <Label for="name_first">First name</Label>
                         <Input
-                            id="name"
+                            id="name_first"
                             class="mt-1 block w-full"
-                            name="name"
-                            :default-value="user.name"
+                            name="name_first"
+                            :default-value="user.name_first"
                             required
-                            autocomplete="name"
-                            placeholder="Full name"
+                            autocomplete="given-name"
+                            placeholder="First name"
                         />
-                        <InputError class="mt-2" :message="errors.name" />
+                        <InputError class="mt-2" :message="errors.name_first" />
+                    </div>
+
+                    <div class="grid gap-2">
+                        <Label for="name_last">Last name</Label>
+                        <Input
+                            id="name_last"
+                            class="mt-1 block w-full"
+                            name="name_last"
+                            :default-value="user.name_last"
+                            required
+                            autocomplete="family-name"
+                            placeholder="Last name"
+                        />
+                        <InputError class="mt-2" :message="errors.name_last" />
                     </div>
 
                     <div class="grid gap-2">
