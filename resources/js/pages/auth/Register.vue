@@ -7,11 +7,14 @@ import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Form, Head } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 </script>
 
 <template>
-    <AuthBase title="Create an account" description="Enter your details below to create your account">
-        <Head title="Register" />
+    <AuthBase :title="t('Create an account')" :description="t('Enter your details below to create your account')">
+        <Head :title="t('Register')" />
 
         <Form
             method="post"
@@ -22,31 +25,31 @@ import { LoaderCircle } from 'lucide-vue-next';
         >
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="name_first">First name</Label>
-                    <Input id="name_first" type="text" required autofocus :tabindex="1" autocomplete="given-name" name="name_first" placeholder="First name" />
+                    <Label for="name_first">{{ t('First name') }}</Label>
+                    <Input id="name_first" type="text" required autofocus :tabindex="1" autocomplete="given-name" name="name_first" :placeholder="t('First name')" />
                     <InputError :message="errors.name_first" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="name_last">Last name</Label>
-                    <Input id="name_last" type="text" required autofocus :tabindex="2" autocomplete="family-name" name="name_last" placeholder="Last name" />
+                    <Label for="name_last">{{ t('Last name') }}</Label>
+                    <Input id="name_last" type="text" required autofocus :tabindex="2" autocomplete="family-name" name="name_last" :placeholder="t('Last name')" />
                     <InputError :message="errors.name_last" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="email">{{ t('Email address') }}</Label>
                     <Input id="email" type="email" required :tabindex="3" autocomplete="email" name="email" placeholder="email@example.com" />
                     <InputError :message="errors.email" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password">Password</Label>
-                    <Input id="password" type="password" required :tabindex="4" autocomplete="new-password" name="password" placeholder="Password" />
+                    <Label for="password">{{ t('Password') }}</Label>
+                    <Input id="password" type="password" required :tabindex="4" autocomplete="new-password" name="password" :placeholder="t('Password')" />
                     <InputError :message="errors.password" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password_confirmation">Confirm password</Label>
+                    <Label for="password_confirmation">{{ t('Confirm password') }}</Label>
                     <Input
                         id="password_confirmation"
                         type="password"
@@ -54,20 +57,20 @@ import { LoaderCircle } from 'lucide-vue-next';
                         :tabindex="5"
                         autocomplete="new-password"
                         name="password_confirmation"
-                        placeholder="Confirm password"
+                        :placeholder="t('Confirm password')"
                     />
                     <InputError :message="errors.password_confirmation" />
                 </div>
 
                 <Button type="submit" class="w-full mt-2" tabindex="6" :disabled="processing">
                     <LoaderCircle v-if="processing" class="w-4 h-4 animate-spin" />
-                    Create account
+                    {{ t('Create account') }}
                 </Button>
             </div>
 
             <div class="text-sm text-center text-muted-foreground">
-                Already have an account?
-                <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="7">Log in</TextLink>
+                {{ t('Already have an account?') }}
+                <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="7">{{ t('Log in') }}</TextLink>
             </div>
         </Form>
     </AuthBase>

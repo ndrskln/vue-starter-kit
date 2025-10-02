@@ -6,16 +6,19 @@ import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { Form, Head } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 </script>
 
 <template>
-    <AuthLayout title="Confirm your password" description="This is a secure area of the application. Please confirm your password before continuing.">
-        <Head title="Confirm password" />
+    <AuthLayout :title="t('Confirm your password')" :description="t('This is a secure area of the application. Please confirm your password before continuing.')">
+        <Head :title="t('Confirm password')" />
 
         <Form method="post" :action="route('password.confirm')" reset-on-success v-slot="{ errors, processing }">
             <div class="space-y-6">
                 <div class="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">{{ t('Password') }}</Label>
                     <Input
                         id="password"
                         type="password"
@@ -32,7 +35,7 @@ import { LoaderCircle } from 'lucide-vue-next';
                 <div class="flex items-center">
                     <Button class="w-full" :disabled="processing">
                         <LoaderCircle v-if="processing" class="w-4 h-4 animate-spin" />
-                        Confirm Password
+                        {{ t('Confirm Password') }}
                     </Button>
                 </div>
             </div>

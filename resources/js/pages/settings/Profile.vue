@@ -11,6 +11,9 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type BreadcrumbItem } from '@/types';
 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 interface Props {
     mustVerifyEmail: boolean;
     status?: string;
@@ -20,7 +23,7 @@ defineProps<Props>();
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Profile settings',
+        title: t('Profile settings'),
         href: '/settings/profile',
     },
 ];
@@ -31,15 +34,15 @@ const user = page.props.auth.user;
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Profile settings" />
+        <Head :title="t('Profile settings')" />
 
         <SettingsLayout>
             <div class="flex flex-col space-y-6">
-                <HeadingSmall title="Profile information" description="Update your name and email address" />
+                <HeadingSmall :title="t('Profile information')" :description="t('Update your name and email address')" />
 
                 <Form method="patch" :action="route('profile.update')" class="space-y-6" v-slot="{ errors, processing, recentlySuccessful }">
                     <div class="grid gap-2">
-                        <Label for="name_first">First name</Label>
+                        <Label for="name_first">{{ t('First name') }}</Label>
                         <Input
                             id="name_first"
                             class="mt-1 block w-full"
@@ -47,13 +50,13 @@ const user = page.props.auth.user;
                             :default-value="user.name_first"
                             required
                             autocomplete="given-name"
-                            placeholder="First name"
+                            :placeholder="t('First name')"
                         />
                         <InputError class="mt-2" :message="errors.name_first" />
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="name_last">Last name</Label>
+                        <Label for="name_last">{{ t('Last name') }}</Label>
                         <Input
                             id="name_last"
                             class="mt-1 block w-full"
@@ -61,13 +64,13 @@ const user = page.props.auth.user;
                             :default-value="user.name_last"
                             required
                             autocomplete="family-name"
-                            placeholder="Last name"
+                            :placeholder="t('Last name')"
                         />
                         <InputError class="mt-2" :message="errors.name_last" />
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="email">Email address</Label>
+                        <Label for="email">{{ t('Email address') }}</Label>
                         <Input
                             id="email"
                             type="email"
@@ -76,31 +79,31 @@ const user = page.props.auth.user;
                             :default-value="user.email"
                             required
                             autocomplete="username"
-                            placeholder="Email address"
+                            :placeholder="t('Email address')"
                         />
                         <InputError class="mt-2" :message="errors.email" />
                     </div>
 
                     <div v-if="mustVerifyEmail && !user.email_verified_at">
                         <p class="-mt-4 text-sm text-muted-foreground">
-                            Your email address is unverified.
+                            {{ t('Your email address is unverified.') }}
                             <Link
                                 :href="route('verification.send')"
                                 method="post"
                                 as="button"
                                 class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                             >
-                                Click here to resend the verification email.
+                                {{ t('Click here to resend the verification email.') }}
                             </Link>
                         </p>
 
                         <div v-if="status === 'verification-link-sent'" class="mt-2 text-sm font-medium text-green-600">
-                            A new verification link has been sent to your email address.
+                            {{ t('A new verification link has been sent to your email address.') }}
                         </div>
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button :disabled="processing">Save</Button>
+                        <Button :disabled="processing">{{ t('Save') }}</Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"
@@ -108,7 +111,7 @@ const user = page.props.auth.user;
                             leave-active-class="transition ease-in-out"
                             leave-to-class="opacity-0"
                         >
-                            <p v-show="recentlySuccessful" class="text-sm text-neutral-600">Saved.</p>
+                            <p v-show="recentlySuccessful" class="text-sm text-neutral-600">{{ t('Saved.') }}</p>
                         </Transition>
                     </div>
                 </Form>
